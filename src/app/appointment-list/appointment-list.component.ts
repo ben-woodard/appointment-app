@@ -9,10 +9,15 @@ import Appointment from '../models/appointment';
 export class AppointmentListComponent implements OnInit{
 
   appointments : Appointment[] = []
-
   newAppointmentTitle : string = '';
   newAppointmentDate : Date = new Date();
   id: number = 1;
+
+  ngOnInit(): void {
+    let savedAppointments = localStorage.getItem("appointments")
+
+    this.appointments = savedAppointments ? JSON.parse(savedAppointments) : [];
+  }
 
   addAppointment() {
     if(this.newAppointmentTitle.trim().length && this.newAppointmentDate){
@@ -23,16 +28,13 @@ export class AppointmentListComponent implements OnInit{
       }
       this.id++
       this.appointments.push(newAppointment)
-      for(let app of this.appointments) {
-        console.log(app);
-      }
+      localStorage.setItem("appointments", JSON.stringify(this.appointments))
     }
 
   }
 
-  ngOnInit(): void {
-
-
+  deleteAppointment(index: number) {
+    this.appointments.splice(index, 1)
   }
 
 

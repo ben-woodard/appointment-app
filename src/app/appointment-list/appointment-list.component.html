@@ -3,8 +3,23 @@
   <input [(ngModel)]="newAppointmentDate" placeholder="Appoinment date" type="date">
   <button (click)="addAppointment()">Create Appointment</button>
 </div>
-<div *ngFor="let app of appointments">
-  <h2>Appointment Number {{app.id}}</h2>
-  <p>{{app.title}}</p>
-  <p>{{app.date}}</p>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Appointment Number</th>
+        <th>Appointment Title</th>
+        <th>Appointment Date</th>
+        <th>Delete Appointment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let app of appointments; index as i">
+        <td>{{app.id}}</td>
+        <td>{{app.title}}</td>
+        <td>{{app.date}}</td>
+        <td><button (click)="deleteAppointment(i)">Delete Appointment</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
